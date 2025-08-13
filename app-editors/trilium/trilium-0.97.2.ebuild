@@ -78,6 +78,9 @@ KEYWORDS="~amd64"
 # Not needed if the ebuild doesn't use any USE flags.
 IUSE=""
 
+
+S="${WORKDIR}/Trilium-0.97.2"
+
 # A space delimited list of portage features to restrict. man 5 ebuild
 # for details.  Usually not needed.
 #RESTRICT="strip"
