@@ -13,7 +13,6 @@
 # If an eclass doesn't support latest EAPI, use the previous EAPI instead.
 EAPI=8
 
-
 # inherit lists eclasses to inherit functions from. For example, an ebuild
 # that needs the eautoreconf function from autotools.eclass won't work
 # without the following line:
@@ -23,14 +22,14 @@ EAPI=8
 # Take a look at the eclass/ directory for more examples.
 
 # Short one-line description of this package.
-DESCRIPTION="This is a sample skeleton ebuild file"
+DESCRIPTION="Hierarchical note taking app focused on building personal knowledge bases."
 
 # Homepage, not used by Portage directly but handy for developer reference
-HOMEPAGE="https://foo.example.org/"
+HOMEPAGE="https://github.com/TriliumNext/Trilium"
 
 # Point to any required sources; these will be automatically downloaded by
 # Portage.
-SRC_URI="ftp://foo.example.org/${P}.tar.gz"
+SRC_URI="https://github.com/TriliumNext/Trilium/archive/refs/tags/v0.97.2.tar.gz"
 
 # Source directory; the dir where the sources can be found (automatically
 # unpacked) inside ${WORKDIR}.  The default value for S is ${WORKDIR}/${P}
@@ -38,11 +37,10 @@ SRC_URI="ftp://foo.example.org/${P}.tar.gz"
 # to keep it tidy.
 #S="${WORKDIR}/${P}"
 
-
 # License of the package.  This must match the name of file(s) in the
 # licenses/ directory.  For complex license combination see the developer
 # docs on gentoo.org for details.
-LICENSE=""
+LICENSE="AGPL-3"
 
 # The SLOT variable is used to tell Portage if it's OK to keep multiple
 # versions of the same package installed at the same time.  For example,
@@ -78,12 +76,11 @@ KEYWORDS="~amd64"
 # Comprehensive list of any and all USE flags leveraged in the ebuild,
 # with some exceptions, e.g., ARCH specific flags like "amd64" or "ppc".
 # Not needed if the ebuild doesn't use any USE flags.
-IUSE="gnome X"
+IUSE=""
 
 # A space delimited list of portage features to restrict. man 5 ebuild
 # for details.  Usually not needed.
 #RESTRICT="strip"
-
 
 # Run-time dependencies. Must be defined to whatever this depends on to run.
 # Example:
@@ -104,68 +101,67 @@ IUSE="gnome X"
 # only need to be present in the native build system (CBUILD). Example:
 #BDEPEND="virtual/pkgconfig"
 
-
 # The following src_configure function is implemented as default by portage, so
 # you only need to call it if you need a different behaviour.
 #src_configure() {
-	# Most open-source packages use GNU autoconf for configuration.
-	# The default, quickest (and preferred) way of running configure is:
-	#econf
-	#
-	# You could use something similar to the following lines to
-	# configure your package before compilation.  The "|| die" portion
-	# at the end will stop the build process if the command fails.
-	# You should use this at the end of critical commands in the build
-	# process.  (Hint: Most commands are critical, that is, the build
-	# process should abort if they aren't successful.)
-	#./configure \
-	#	--host=${CHOST} \
-	#	--prefix=/usr \
-	#	--infodir=/usr/share/info \
-	#	--mandir=/usr/share/man || die
-	# Note the use of --infodir and --mandir, above. This is to make
-	# this package FHS 2.2-compliant.  For more information, see
-	#   https://wiki.linuxfoundation.org/lsb/fhs
+# Most open-source packages use GNU autoconf for configuration.
+# The default, quickest (and preferred) way of running configure is:
+#econf
+#
+# You could use something similar to the following lines to
+# configure your package before compilation.  The "|| die" portion
+# at the end will stop the build process if the command fails.
+# You should use this at the end of critical commands in the build
+# process.  (Hint: Most commands are critical, that is, the build
+# process should abort if they aren't successful.)
+#./configure \
+#	--host=${CHOST} \
+#	--prefix=/usr \
+#	--infodir=/usr/share/info \
+#	--mandir=/usr/share/man || die
+# Note the use of --infodir and --mandir, above. This is to make
+# this package FHS 2.2-compliant.  For more information, see
+#   https://wiki.linuxfoundation.org/lsb/fhs
 #}
 
 # The following src_compile function is implemented as default by portage, so
 # you only need to call it, if you need different behaviour.
 #src_compile() {
-	# emake is a script that calls the standard GNU make with parallel
-	# building options for speedier builds (especially on SMP systems).
-	# Try emake first.  It might not work for some packages, because
-	# some makefiles have bugs related to parallelism, in these cases,
-	# use emake -j1 to limit make to a single process.  The -j1 is a
-	# visual clue to others that the makefiles have bugs that have been
-	# worked around.
+# emake is a script that calls the standard GNU make with parallel
+# building options for speedier builds (especially on SMP systems).
+# Try emake first.  It might not work for some packages, because
+# some makefiles have bugs related to parallelism, in these cases,
+# use emake -j1 to limit make to a single process.  The -j1 is a
+# visual clue to others that the makefiles have bugs that have been
+# worked around.
 
-	#emake
+#emake
 #}
 
 # The following src_install function is implemented as default by portage, so
 # you only need to call it, if you need different behaviour.
 #src_install() {
-	# You must *personally verify* that this trick doesn't install
-	# anything outside of DESTDIR; do this by reading and
-	# understanding the install part of the Makefiles.
-	# This is the preferred way to install.
-	#emake DESTDIR="${D}" install
+# You must *personally verify* that this trick doesn't install
+# anything outside of DESTDIR; do this by reading and
+# understanding the install part of the Makefiles.
+# This is the preferred way to install.
+#emake DESTDIR="${D}" install
 
-	# When you hit a failure with emake, do not just use make. It is
-	# better to fix the Makefiles to allow proper parallelization.
-	# If you fail with that, use "emake -j1", it's still better than make.
+# When you hit a failure with emake, do not just use make. It is
+# better to fix the Makefiles to allow proper parallelization.
+# If you fail with that, use "emake -j1", it's still better than make.
 
-	# For Makefiles that don't make proper use of DESTDIR, setting
-	# prefix is often an alternative.  However if you do this, then
-	# you also need to specify mandir and infodir, since they were
-	# passed to ./configure as absolute paths (overriding the prefix
-	# setting).
-	#emake \
-	#	prefix="${D}"/usr \
-	#	mandir="${D}"/usr/share/man \
-	#	infodir="${D}"/usr/share/info \
-	#	libdir="${D}"/usr/$(get_libdir) \
-	#	install
-	# Again, verify the Makefiles!  We don't want anything falling
-	# outside of ${D}.
+# For Makefiles that don't make proper use of DESTDIR, setting
+# prefix is often an alternative.  However if you do this, then
+# you also need to specify mandir and infodir, since they were
+# passed to ./configure as absolute paths (overriding the prefix
+# setting).
+#emake \
+#	prefix="${D}"/usr \
+#	mandir="${D}"/usr/share/man \
+#	infodir="${D}"/usr/share/info \
+#	libdir="${D}"/usr/$(get_libdir) \
+#	install
+# Again, verify the Makefiles!  We don't want anything falling
+# outside of ${D}.
 #}
